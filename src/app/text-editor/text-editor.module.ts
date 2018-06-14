@@ -6,6 +6,9 @@ import { TextEditorComponent } from './text-editor.component';
   imports: [
     CommonModule
   ],
+  exports: [
+    TextEditorComponent
+  ],
   declarations: [TextEditorComponent]
 })
 export class TextEditorModule { }

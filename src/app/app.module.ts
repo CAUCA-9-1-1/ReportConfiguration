@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {ReportConfigurationModule} from './report-configuration/report-configuration.module';
+import {TextEditorModule} from './text-editor/text-editor.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import {ReportConfigurationModule} from './report-configuration/report-configura
   ],
   imports: [
     BrowserModule,
-    ReportConfigurationModule
+    TextEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
