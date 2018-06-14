@@ -6,6 +6,11 @@ import { ReportConfigurationComponent } from './report-configuration.component';
   imports: [
     CommonModule
   ],
-  declarations: [ReportConfigurationComponent]
+  declarations: [
+    ReportConfigurationComponent
+  ],
+  exports: [
+    ReportConfigurationComponent
+  ]
 })
 export class ReportConfigurationModule { }
