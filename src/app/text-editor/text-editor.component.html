@@ -1,3 +1,13 @@
-<body class="main-area">
-  <ckeditor class="text-area"></ckeditor>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+</head>
+<body style="height: 100%; overflow: hidden">
+<div class="main-area">
+  <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+</div>
+  <ckeditor class="text-area" [(ngModel)]="documentContent" debounce="500" [config]="editorConfiguration"></ckeditor>
 </body>
+</html>
