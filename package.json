@@ -1,9 +1,9 @@
 {
   "name": "report-configuration",
-  "version": "0.0.2",
+  "version": "0.0.11",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port=4444",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
