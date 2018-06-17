@@ -1,3 +1,4 @@
+
 export var ckeditorConfiguration = {
   // Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar
   // The full preset from CDN which we used as a base provides more features than we need.
@@ -14,6 +15,7 @@ export var ckeditorConfiguration = {
     { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] },
     { name: 'tools', items: [ 'Maximize' ] },
     { name: 'editing', items: [ 'Scayt' ] },
+    { name: 'custom', items: [ 'saveButton', 'downloadButton', 'resetButton' ] }
   ],
 
   // Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
@@ -45,73 +47,7 @@ export var ckeditorConfiguration = {
 
   // An array of stylesheets to style the WYSIWYG area.
   // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
-  contentsCss: [
-    "@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,400,400i,600,600i,700,700i');\n" +
-    "\n" +
-    "body.document-editor {\n" +
-    "    width: 8.5in;\n" +
-    "    min-height: 21cm;\n" +
-    "    padding: 1cm 2cm 2cm;\n" +
-    "    margin: 0.75in auto;\n" +
-    "    border: 1px #D3D3D3 solid;\n" +
-    "    border-radius: 5px;\n" +
-    "    background: white;\n" +
-    "    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n" +
-    "    margin-top: 30px;\n" +
-    "    margin-bottom: 30px;\n" +
-    "    font-size: 16px;\n" +
-    "    line-height: 24px;\n" +
-    "    font-family: \"Nunito Sans\", Verdana, Helvetica, sans-serif;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor td, body.document-editor th {\n" +
-    "    font-size: 0.9em;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor h1 {\n" +
-    "    margin-bottom:1cm;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table {\n" +
-    "    margin-top:0.5cm;\n" +
-    "    margin-bottom:0.5cm;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table td {\n" +
-    "    border-right: 1px solid #d0d0d0;\n" +
-    "    border-bottom: 1px solid #d0d0d0;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table td:first-of-type {\n" +
-    "    border-left: 1px solid #d0d0d0;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table tr:first-of-type td {\n" +
-    "    border-top: 1px solid #d0d0d0;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table thead th {\n" +
-    "    border-top: 1px solid #d0d0d0;\n" +
-    "    border-right: 1px solid #d0d0d0;\n" +
-    "}\n" +
-    "\n" +
-    "body.document-editor table thead th:first-of-type {\n" +
-    "    border-left: 1px solid #d0d0d0;\n" +
-    "}\n" +
-    "\n" +
-    "table {\n" +
-    "    border-collapse: collapse;\n" +
-    "    width: 100%;\n" +
-    "}\n" +
-    "\n" +
-    "th, td {\n" +
-    "    text-align: left;\n" +
-    "    padding: 8px;\n" +
-    "}\n" +
-    "\n" +
-    "tr:nth-child(even) {background-color: #f2f2f2;}\n" +
-    "col:nth-child(even) {border-bottom: 1px solid #000000;}"
-  ],
+  contentsCss: ['./assets/document-editor.css'],
 
   // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
   bodyClass: 'document-editor',
