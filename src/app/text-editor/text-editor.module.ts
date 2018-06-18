@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { LoadingModule } from 'ngx-loading';
+import { TextEditorService } from './shared/text-editor.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { LoadingModule } from 'ngx-loading';
   exports: [
     TextEditorComponent
   ],
-  declarations: [TextEditorComponent]
+  declarations: [TextEditorComponent],
+  providers: [TextEditorService]
 })
 export class TextEditorModule { }

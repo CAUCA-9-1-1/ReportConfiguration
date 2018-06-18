@@ -1,8 +1,8 @@
 
 export var ckeditorConfiguration = {
-  // Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar
-  // The full preset from CDN which we used as a base provides more features than we need.
-  // Also by default it comes with a 3-line toolbar. Here we put all buttons in a single row.
+
+  // Todo use 'divarea' to fix the error code editor-destroy-iframe
+  extraPlugins: 'widget,tabletools,imageresizerowandcolumn',
   toolbar: [
     { name: 'document', items: [ 'Print' ] },
     { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
@@ -18,9 +18,6 @@ export var ckeditorConfiguration = {
     { name: 'custom', items: [ 'saveButton', 'downloadButton', 'resetButton' ] }
   ],
 
-  // Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
-  // One HTTP request less will result in a faster startup time.
-  // For more information check http://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-customConfig
   customConfig: '',
 
   // Sometimes applications that convert HTML to PDF prefer setting image width through attributes instead of CSS styles.
@@ -32,28 +29,13 @@ export var ckeditorConfiguration = {
   extraAllowedContent: 'img[width,height,align]',
 
   /*********************** File management support ***********************/
-  // In order to turn on support for file uploads, CKEditor has to be configured to use some server side
-  // solution with file upload/management capabilities, like for example CKFinder.
-  // For more information see http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_ckfinder_integration
 
-  // Uncomment and correct these lines after you setup your local CKFinder instance.
-  // filebrowserBrowseUrl: 'http://example.com/ckfinder/ckfinder.html',
-  // filebrowserUploadUrl: 'http://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-  /*********************** File management support ***********************/
-
-  // Make the editing area bigger than default.
   height: 800,
   width: '100%',
 
-  // An array of stylesheets to style the WYSIWYG area.
-  // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
   contentsCss: ['./assets/document-editor.css'],
 
-  // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
   bodyClass: 'document-editor',
-
-  // Reduce the list of block elements listed in the Format dropdown to the most commonly used.
-  format_tags: 'p;h1;h2;h3;pre',
 
   // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
   removeDialogTabs: 'image:advanced;link:advanced',

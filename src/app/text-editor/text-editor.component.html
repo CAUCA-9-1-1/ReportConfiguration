@@ -5,9 +5,9 @@
   <base href="/">
 </head>
 <body style="height: 100%; overflow: hidden">
-<div class="main-area">
-  <ngx-loading [show]="_isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-</div>
+  <div class="main-area">
+    <ngx-loading [show]="_isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  </div>
   <ckeditor class="text-area" [(ngModel)]="_documentContent" debounce="500" [config]="_editorConfiguration">
     <ckbutton [name]="'saveButton'"
               [command]="'saveData'"
