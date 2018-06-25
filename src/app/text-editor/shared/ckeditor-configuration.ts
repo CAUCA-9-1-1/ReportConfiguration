@@ -15,7 +15,7 @@ export var ckeditorConfiguration = {
     { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] },
     { name: 'tools', items: [ 'Maximize' ] },
     { name: 'editing', items: [ 'Scayt' ] },
-    { name: 'custom', items: [ 'saveButton', 'downloadButton', 'resetButton' ] }
+    { name: 'custom', items: [ 'saveButton', 'resetButton' ] }
   ],
 
   customConfig: '',

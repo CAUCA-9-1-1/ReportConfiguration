@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ckeditorConfiguration } from './shared/ckeditor-configuration'
 import { TextEditorService } from './shared/text-editor.service';
 
@@ -12,7 +12,22 @@ export class TextEditorComponent implements OnInit {
   /**
    * Attributes
    */
-  _documentContent: any;
+  documentContentValue: string;
+
+  @Output()
+  documentContentChange = new EventEmitter<string>();
+
+  @Input()
+  get documentContent() {
+    return this.documentContentValue;
+  }
+
+  set documentContent(value) {
+    this.documentContentValue = value;
+    this.documentContentChange.emit(this.documentContentValue)
+  }
+
+  @Input() resetData: () => void;
 
   _editorConfiguration = ckeditorConfiguration;
   _isLoading = false;
@@ -25,19 +40,12 @@ export class TextEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadLastSavedTemplate();
+    // this.loadLastSavedTemplate();
   }
 
   /**
    * Getters and setters
    */
-  public get documentContent(): string {
-    return this._documentContent;
-  }
-
-  public set documentContent(content: string) {
-    this._documentContent = content;
-  }
 
   public set serverUrl(serverUrl: string) {
     this.textEditorService.serverUrl = serverUrl;
@@ -46,21 +54,21 @@ export class TextEditorComponent implements OnInit {
   /**
    * Methods
    */
-  public loadLastSavedTemplate() {
-    this._isLoading = true;
-    this.textEditorService.getLastSavedTemplate()
-      .subscribe(res => {
-          this._documentContent = res;
-          this._isLoading = false;
-        },
-        err => {
-          this._isLoading = false;
-        });
-  }
+  // public loadLastSavedTemplate() {
+  //   this._isLoading = true;
+  //   this.textEditorService.getLastSavedTemplate()
+  //     .subscribe(res => {
+  //         this.documentContent = res;
+  //         this._isLoading = false;
+  //       },
+  //       err => {
+  //         this._isLoading = false;
+  //       });
+  // }
 
   public saveData() {
     this._isLoading = true;
-    this.textEditorService.saveTemplate(this._documentContent).subscribe( res => {
+    this.textEditorService.saveTemplate(this.documentContent).subscribe( res => {
         this._isLoading = false;
       },
       err => {
@@ -68,21 +76,16 @@ export class TextEditorComponent implements OnInit {
       });
   }
 
-  public resetData() {
-    this._isLoading = true;
-    this.textEditorService.resetData()
-      .subscribe(res => {
-          this._documentContent = res;
-          this._isLoading = false;
-        },
-        err => {
-          this._isLoading = false;
-        }
-      );
-  }
-
-  public downloadPdf() {
-    this.textEditorService.downloadPdf();
-  }
-
+  // public resetData() {
+  //   this._isLoading = true;
+  //   this.textEditorService.resetData()
+  //     .subscribe(res => {
+  //         this.documentContent = res;
+  //         this._isLoading = false;
+  //       },
+  //       err => {
+  //         this._isLoading = false;
+  //       }
+  //     );
+  // }
 }

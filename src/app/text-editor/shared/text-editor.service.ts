@@ -40,10 +40,6 @@ export class TextEditorService {
     return this.http.get(this._resetDataUrl);
   }
 
-  public downloadPdf() {
-    window.open(this._pdfDownloadUrl + '?qt=' + Date.now());
-  }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
