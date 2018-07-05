@@ -24,10 +24,13 @@ export class TextEditorComponent implements OnInit {
 
   set documentContent(value) {
     this.documentContentValue = value;
-    this.documentContentChange.emit(this.documentContentValue)
+    this.documentContentChange.emit(this.documentContentValue);
   }
 
-  @Input() resetData: () => void;
+  @Output()
+  resetDataEvent = new EventEmitter<string>();
+
+
 
   _editorConfiguration = ckeditorConfiguration;
   _isLoading = false;
@@ -76,16 +79,7 @@ export class TextEditorComponent implements OnInit {
       });
   }
 
-  // public resetData() {
-  //   this._isLoading = true;
-  //   this.textEditorService.resetData()
-  //     .subscribe(res => {
-  //         this.documentContent = res;
-  //         this._isLoading = false;
-  //       },
-  //       err => {
-  //         this._isLoading = false;
-  //       }
-  //     );
-  // }
+  public resetData() {
+    this.resetDataEvent.emit();
+  }
 }
