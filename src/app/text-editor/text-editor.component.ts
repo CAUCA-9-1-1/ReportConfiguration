@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ckeditorConfiguration } from './shared/ckeditor-configuration'
-import { TextEditorService } from './shared/text-editor.service';
 
 @Component({
   selector: 'app-text-editor',
@@ -32,15 +31,13 @@ export class TextEditorComponent implements OnInit {
 
   @Output()
   saveDataEvent = new EventEmitter<string>();
-  
+
 
   /**
    * Initialisation
    */
 
-  constructor(
-    private textEditorService: TextEditorService
-  ) { }
+  constructor() { }
 
   ngOnInit() {  }
 
