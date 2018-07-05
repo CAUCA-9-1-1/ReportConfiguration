@@ -13,73 +13,56 @@ export class TextEditorComponent implements OnInit {
    * Attributes
    */
   documentContentValue: string;
-
-  @Output()
-  documentContentChange = new EventEmitter<string>();
+  editorConfiguration = ckeditorConfiguration;
 
   @Input()
   get documentContent() {
     return this.documentContentValue;
   }
 
-  set documentContent(value) {
-    this.documentContentValue = value;
-    this.documentContentChange.emit(this.documentContentValue);
-  }
+  /**
+   * Callbacks
+   */
 
   @Output()
-  resetDataEvent = new EventEmitter<string>();
+  documentContentChange = new EventEmitter<string>();
 
+  @Output()
+  loadDataEvent = new EventEmitter<string>();
 
-
-  _editorConfiguration = ckeditorConfiguration;
-  _isLoading = false;
+  @Output()
+  saveDataEvent = new EventEmitter<string>();
+  
 
   /**
    * Initialisation
    */
+
   constructor(
     private textEditorService: TextEditorService
   ) { }
 
-  ngOnInit() {
-    // this.loadLastSavedTemplate();
-  }
+  ngOnInit() {  }
 
   /**
    * Getters and setters
    */
 
-  public set serverUrl(serverUrl: string) {
-    this.textEditorService.serverUrl = serverUrl;
+  set documentContent(value) {
+    this.documentContentValue = value;
+    this.documentContentChange.emit(this.documentContentValue);
   }
+
 
   /**
    * Methods
    */
-  // public loadLastSavedTemplate() {
-  //   this._isLoading = true;
-  //   this.textEditorService.getLastSavedTemplate()
-  //     .subscribe(res => {
-  //         this.documentContent = res;
-  //         this._isLoading = false;
-  //       },
-  //       err => {
-  //         this._isLoading = false;
-  //       });
-  // }
 
   public saveData() {
-    this._isLoading = true;
-    this.textEditorService.saveTemplate(this.documentContent).subscribe( res => {
-        this._isLoading = false;
-      },
-      err => {
-        this._isLoading = false;
-      });
+    this.saveDataEvent.emit();
   }
 
-  public resetData() {
-    this.resetDataEvent.emit();
+  public loadData() {
+    this.loadDataEvent.emit();
   }
 }

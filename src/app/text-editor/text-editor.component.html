@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <base href="/">
 </head>
-<body style="height: 100%; overflow: hidden">
-  <div class="main-area">
-    <ngx-loading [show]="_isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-  </div>
-  <ckeditor class="text-area" [(ngModel)]="documentContent" debounce="500" [config]="_editorConfiguration">
+<body>
+  <ckeditor class="text-area" [(ngModel)]="documentContent" debounce="500" [config]="editorConfiguration">
     <ckbutton [name]="'saveButton'"
               [command]="'saveData'"
               (click)="saveData()"
@@ -16,11 +13,11 @@
               [label]="'Save'"
               [toolbar]="'editing,1'">
     </ckbutton>
-    <ckbutton [name]="'resetButton'"
-              [command]="'resetData'"
-              (click)="resetData()"
+    <ckbutton [name]="'loadButton'"
+              [command]="'loadData'"
+              (click)="loadData()"
               [icon]="'https://png.icons8.com/ios/50/000000/synchronize-filled.png'"
-              [label]="'Reset Content'"
+              [label]="'Load Content'"
               [toolbar]="'editing,1'">
     </ckbutton>
   </ckeditor>
