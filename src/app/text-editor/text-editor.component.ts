@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ckeditorConfiguration } from './shared/ckeditor-configuration'
+import { ckeditorConfiguration } from './shared/ckeditor-configuration';
+
+
+declare const window: any;
 
 @Component({
   selector: 'app-text-editor',
@@ -12,12 +15,7 @@ export class TextEditorComponent implements OnInit {
    * Attributes
    */
   documentContentValue: string;
-  editorConfiguration = ckeditorConfiguration;
-
-  @Input()
-  get documentContent() {
-    return this.documentContentValue;
-  }
+  editor: any;
 
   /**
    * Callbacks
@@ -39,7 +37,34 @@ export class TextEditorComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    if (window.CKEDITOR) {
+      this.editor = window.CKEDITOR.replace('editor', ckeditorConfiguration);
+      const that = this;
+        this.editor.addCommand('saveData', {
+          exec: function (edt) {
+            that.saveData();
+          }
+        });
+        this.editor.ui.addButton('saveButton', {
+          label: 'Save',
+          command: 'saveData',
+          toolbar: 'editing,1',
+          icon: 'https://png.icons8.com/ios/100/000000/save-filled.png'
+        });
+        this.editor.addCommand('loadData', {
+          exec: function (edt) {
+            that.loadData();
+          }
+        });
+        this.editor.ui.addButton('loadButton', {
+          label: 'Load Content',
+          command: 'loadData',
+          toolbar: 'editing,1',
+          icon: 'https://png.icons8.com/ios/50/000000/synchronize-filled.png'
+        });
+    }
+  }
 
   /**
    * Getters and setters
@@ -47,7 +72,17 @@ export class TextEditorComponent implements OnInit {
 
   set documentContent(value) {
     this.documentContentValue = value;
+    if (this.editor != null) {
+      this.editor.setData(this.documentContentValue, function () {
+        this.checkDirty();  // true
+      });
+    }
     this.documentContentChange.emit(this.documentContentValue);
+  }
+
+  @Input()
+  get documentContent() {
+    return this.documentContentValue;
   }
 
 
@@ -56,10 +91,18 @@ export class TextEditorComponent implements OnInit {
    */
 
   public saveData() {
+    if (this.editor != null) {
+      this.documentContent = this.editor.getData();
+    }
     this.saveDataEvent.emit();
   }
 
   public loadData() {
     this.loadDataEvent.emit();
+  }
+
+  @Input()
+  public insertAtCaret(value) {
+    this.editor.insertText(value);
   }
 }
