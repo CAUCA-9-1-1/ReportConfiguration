@@ -5,21 +5,6 @@
   <base href="/">
 </head>
 <body>
-  <ckeditor class="text-area" [(ngModel)]="documentContent" debounce="500" [config]="editorConfiguration">
-    <ckbutton [name]="'saveButton'"
-              [command]="'saveData'"
-              (click)="saveData()"
-              [icon]="'https://png.icons8.com/ios/100/000000/save-filled.png'"
-              [label]="'Save'"
-              [toolbar]="'editing,1'">
-    </ckbutton>
-    <ckbutton [name]="'loadButton'"
-              [command]="'loadData'"
-              (click)="loadData()"
-              [icon]="'https://png.icons8.com/ios/50/000000/synchronize-filled.png'"
-              [label]="'Load Content'"
-              [toolbar]="'editing,1'">
-    </ckbutton>
-  </ckeditor>
+  <textarea id="editor"></textarea>
 </body>
 </html>
