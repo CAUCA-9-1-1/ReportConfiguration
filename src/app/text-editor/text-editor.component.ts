@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ckeditorConfiguration } from './shared/ckeditor-configuration'
+import { ckeditorConfiguration } from './shared/ckeditor-configuration';
 
 
 declare const window: any;
@@ -99,5 +99,10 @@ export class TextEditorComponent implements OnInit {
 
   public loadData() {
     this.loadDataEvent.emit();
+  }
+
+  @Input()
+  public insertAtCaret(value) {
+    this.editor.insertText(value);
   }
 }

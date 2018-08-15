@@ -30,7 +30,7 @@ export var ckeditorConfiguration = {
 
   /*********************** File management support ***********************/
 
-  height: 800,
+  height: 735,
   width: '100%',
 
   contentsCss: ['./assets/document-editor.css'],
