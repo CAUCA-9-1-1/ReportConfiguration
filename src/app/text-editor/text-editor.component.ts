@@ -14,6 +14,7 @@ export class TextEditorComponent implements OnInit {
   /**
    * Attributes
    */
+  placeholderList: any;
   documentContentValue: string;
   editor: any;
 
@@ -30,6 +31,9 @@ export class TextEditorComponent implements OnInit {
   @Output()
   saveDataEvent = new EventEmitter<string>();
 
+  @Output()
+  placeHolderEvent = new EventEmitter<string>();
+
 
   /**
    * Initialisation
@@ -38,31 +42,40 @@ export class TextEditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.placeholderList = [];
+    document.getElementById('editor').style.display = 'none';
+  }
+
+  public initializeCKEditor() {
     if (window.CKEDITOR) {
+      window.CKEDITOR.plugins.addExternal('strinsert', '../../assets/custom_plugins/strinsert/');
+      ckeditorConfiguration['placeholders'] = this.placeholderList;
       this.editor = window.CKEDITOR.replace('editor', ckeditorConfiguration);
       const that = this;
-        this.editor.addCommand('saveData', {
-          exec: function (edt) {
-            that.saveData();
-          }
-        });
-        this.editor.ui.addButton('saveButton', {
-          label: 'Save',
-          command: 'saveData',
-          toolbar: 'editing,1',
-          icon: 'https://png.icons8.com/ios/100/000000/save-filled.png'
-        });
-        this.editor.addCommand('loadData', {
-          exec: function (edt) {
-            that.loadData();
-          }
-        });
-        this.editor.ui.addButton('loadButton', {
-          label: 'Load Content',
-          command: 'loadData',
-          toolbar: 'editing,1',
-          icon: 'https://png.icons8.com/ios/50/000000/synchronize-filled.png'
-        });
+      this.editor.addCommand('saveData', {
+        exec: function (edt) {
+          that.saveData();
+        }
+      });
+      this.editor.ui.addButton('saveButton', {
+        label: 'Save',
+        command: 'saveData',
+        toolbar: 'editing,1',
+        icon: 'https://png.icons8.com/ios/100/000000/save-filled.png'
+      });
+      this.editor.addCommand('loadData', {
+        exec: function (edt) {
+          that.loadData();
+        }
+      });
+      this.editor.ui.addButton('loadButton', {
+        label: 'Load Content',
+        command: 'loadData',
+        toolbar: 'editing,1',
+
+        icon: 'https://png.icons8.com/ios/50/000000/synchronize-filled.png'
+      });
+      this.showEditor();
     }
   }
 
@@ -85,10 +98,29 @@ export class TextEditorComponent implements OnInit {
     return this.documentContentValue;
   }
 
+  set placeholders(placeholderNames) {
+    if (placeholderNames === undefined || placeholderNames === null) {
+      return;
+    }
+    placeholderNames.forEach( item => {
+        this.placeholderList.push(['{{' + item + '}}', item, item]);
+      });
+    this.placeHolderEvent.emit(this.placeholderList);
+    this.initializeCKEditor();
+  }
+
+  @Input()
+  get placeholders() {
+    return this.placeholderList;
+  }
 
   /**
    * Methods
    */
+
+  public showEditor() {
+    document.getElementById('editor').style.display = 'block';
+  }
 
   public saveData() {
     if (this.editor != null) {

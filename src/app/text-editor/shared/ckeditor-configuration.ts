@@ -2,7 +2,7 @@
 export var ckeditorConfiguration = {
 
   // Todo use 'divarea' to fix the error code editor-destroy-iframe
-  extraPlugins: 'widget,tabletools,imageresizerowandcolumn',
+  extraPlugins: 'widget,tabletools,imageresizerowandcolumn,strinsert,richcombo,floatpanel,panel',
   toolbar: [
     { name: 'custom', items: [ 'loadButton', 'saveButton' ] },
     { name: 'document', items: [ 'Print' ] },
@@ -15,7 +15,7 @@ export var ckeditorConfiguration = {
     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
     { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] },
     { name: 'tools', items: [ 'Maximize' ] },
-    { name: 'editing', items: [ 'Scayt' ] }
+    { name: 'editing', items: [ 'Scayt', 'strinsert' ] }
   ],
 
   customConfig: '',
