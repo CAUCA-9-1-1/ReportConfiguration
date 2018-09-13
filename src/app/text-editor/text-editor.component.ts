@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ckeditorConfiguration } from './shared/ckeditor-configuration';
+import {PlaceholderGroup} from './shared/placeholder-group';
 
 
 declare const window: any;
@@ -14,7 +15,7 @@ export class TextEditorComponent implements OnInit {
   /**
    * Attributes
    */
-  placeholderList: any;
+  placeholderList: PlaceholderGroup[];
   documentContentValue: string;
   editor: any;
 
@@ -32,7 +33,7 @@ export class TextEditorComponent implements OnInit {
   saveDataEvent = new EventEmitter<string>();
 
   @Output()
-  placeHolderEvent = new EventEmitter<string>();
+  placeHolderEvent = new EventEmitter<PlaceholderGroup[]>();
 
 
   /**
@@ -42,7 +43,7 @@ export class TextEditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.placeholderList = [];
+    // this.placeholderList = PlaceholderGroup[];
     document.getElementById('editor').style.display = 'none';
   }
 
@@ -102,9 +103,7 @@ export class TextEditorComponent implements OnInit {
     if (placeholderNames === undefined || placeholderNames === null) {
       return;
     }
-    placeholderNames.forEach( item => {
-        this.placeholderList.push(['{{' + item + '}}', item, item]);
-      });
+    this.placeholderList = placeholderNames;
     this.placeHolderEvent.emit(this.placeholderList);
     this.initializeCKEditor();
   }
