@@ -10,9 +10,9 @@
 CKEDITOR.plugins.add('strinsert',
 {
 	requires : ['richcombo'],
-  addMenu: function (editor, title, placeholders) {
+  addMenu: function (editor, title, placeholders, grouptag) {
 // add the menu to the editor
-    editor.ui.addRichCombo('strinsert',
+    editor.ui.addRichCombo(grouptag,
       {
         label: title,
         title: title,
@@ -27,9 +27,11 @@ CKEDITOR.plugins.add('strinsert',
 
         init: function () {
           this.startGroup(title);
-          for (var i in placeholders) {
-            this.add(placeholders[i][0], placeholders[i][1], placeholders[i][2]);
-          }
+          this.add('['+grouptag + '][/'+grouptag+']', '[Group]', '[Group]');
+          placeholders.forEach((placeholder) => {
+            console.log('placeholder', JSON.stringify(placeholder));
+            this.add(placeholder.tag, placeholder.name, placeholder.name);
+          });
         },
 
         onClick: function (value) {
@@ -43,10 +45,9 @@ CKEDITOR.plugins.add('strinsert',
 	{
 		//  array of strings to choose from that'll be inserted into the editor
     var groups = editor.config['placeholders'];
-    console.log('holders', JSON.stringify(groups));
-    groups.foreach((group) => {
-      this.addMenu(editor, group['name'], group['placeholders']);
+
+    groups.forEach((group) => {
+      this.addMenu(editor, group['name'], group['placeholders'], group['tag']);
     });
-    //this.addMenu(editor, strings);
   }
 });

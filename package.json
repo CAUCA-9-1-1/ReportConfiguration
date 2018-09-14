@@ -1,6 +1,6 @@
 {
   "name": "cause-report-configuration",
-  "version": "0.2.3",
+  "version": "0.2.20",
   "license": "MPL-2.0",
   "scripts": {
     "ng": "ng",

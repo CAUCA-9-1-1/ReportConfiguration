@@ -50,6 +50,11 @@ export class TextEditorComponent implements OnInit {
   public initializeCKEditor() {
     if (window.CKEDITOR) {
       window.CKEDITOR.plugins.addExternal('strinsert', '../../assets/custom_plugins/strinsert/');
+
+      const editBar = ckeditorConfiguration.toolbar.find(toolBar => toolBar.name === 'editing');
+      this.placeholderList.forEach(group => editBar.items.push(group.tag));
+      console.log('config', JSON.stringify(ckeditorConfiguration));
+
       ckeditorConfiguration['placeholders'] = this.placeholderList;
       this.editor = window.CKEDITOR.replace('editor', ckeditorConfiguration);
       const that = this;

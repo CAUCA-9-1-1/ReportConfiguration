@@ -15,7 +15,7 @@ export var ckeditorConfiguration = {
     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
     { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] },
     { name: 'tools', items: [ 'Maximize' ] },
-    { name: 'editing', items: [ 'Scayt', 'strinsert' ] }
+    { name: 'editing', items: [ 'Scayt' ] }
   ],
 
   customConfig: '',
