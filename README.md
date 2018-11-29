@@ -1,7 +1,7 @@
 # ReportConfiguration
 
 ## Installing with npm
-$ npm install --save report-configuration
+$ npm install --save cause-report-configuration
 
 ## Initialization of the Text-Editor Component
 

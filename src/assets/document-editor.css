@@ -61,5 +61,9 @@ th, td {
   padding: 8px;
 }
 
+.cke_combo_text {
+  width: auto;
+}
+
 tr:nth-child(even) {background-color: #f2f2f2;}
 col:nth-child(even) {border-bottom: 1px solid #000000;}

@@ -2,7 +2,7 @@
 export var ckeditorConfiguration = {
 
   // Todo use 'divarea' to fix the error code editor-destroy-iframe
-  extraPlugins: 'widget,tabletools,imageresizerowandcolumn',
+  extraPlugins: 'widget,tabletools,imageresizerowandcolumn,strinsert,richcombo,floatpanel,panel',
   toolbar: [
     { name: 'custom', items: [ 'loadButton', 'saveButton' ] },
     { name: 'document', items: [ 'Print' ] },
