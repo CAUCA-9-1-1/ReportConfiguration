@@ -33,3 +33,8 @@ th, td {
 
 tr:nth-child(even) {background-color: #f2f2f2;}
 col:nth-child(even) {background-color: #f2f2f2;}
+
+::ng-deep span.cke_combo_text{
+  width: auto;
+}
+
