@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ckeditorConfiguration } from './shared/ckeditor-configuration';
+import {ckeditorConfiguration} from './shared/ckeditor-configuration';
 import {PlaceholderGroup} from './shared/placeholder-group';
 
 
@@ -18,6 +18,7 @@ export class TextEditorComponent implements OnInit {
   placeholderList: PlaceholderGroup[];
   documentContentValue: string;
   editor: any;
+  isReady: boolean;
 
   /**
    * Callbacks
@@ -40,10 +41,11 @@ export class TextEditorComponent implements OnInit {
    * Initialisation
    */
 
-  constructor() { }
+  constructor() { 
+    this.isReady = false;
+  }
 
   ngOnInit() {
-    // this.placeholderList = PlaceholderGroup[];
     document.getElementById('editor').style.display = 'none';
   }
 
@@ -90,14 +92,19 @@ export class TextEditorComponent implements OnInit {
    * Getters and setters
    */
 
-  set documentContent(value) {
+  set documentContent(value: string) {
     this.documentContentValue = value;
+    if (!this.editor && this.isReady) {
+      this.initializeCKEditor();
+    }
+    this.isReady = true;
+    
     if (this.editor != null) {
       this.editor.setData(this.documentContentValue, function () {
         this.checkDirty();  // true
       });
+      this.documentContentChange.emit(this.documentContentValue);
     }
-    this.documentContentChange.emit(this.documentContentValue);
   }
 
   @Input()
@@ -111,7 +118,10 @@ export class TextEditorComponent implements OnInit {
     }
     this.placeholderList = placeholderNames;
     this.placeHolderEvent.emit(this.placeholderList);
-    this.initializeCKEditor();
+    if(this.isReady) {
+      this.initializeCKEditor();
+    }
+    this.isReady = true;
   }
 
   @Input()
