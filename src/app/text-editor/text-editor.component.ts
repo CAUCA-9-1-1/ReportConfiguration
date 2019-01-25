@@ -28,9 +28,6 @@ export class TextEditorComponent implements OnInit {
   documentContentChange = new EventEmitter<string>();
 
   @Output()
-  loadDataEvent = new EventEmitter<string>();
-
-  @Output()
   saveDataEvent = new EventEmitter<string>();
 
   @Output()
@@ -72,18 +69,6 @@ export class TextEditorComponent implements OnInit {
         toolbar: 'editing,1',
         icon: 'https://png.icons8.com/ios/100/000000/save-filled.png'
       });
-      this.editor.addCommand('loadData', {
-        exec: function (edt) {
-          that.loadData();
-        }
-      });
-      this.editor.ui.addButton('loadButton', {
-        label: 'Load Content',
-        command: 'loadData',
-        toolbar: 'editing,1',
-
-        icon: 'https://png.icons8.com/ios/50/000000/synchronize-filled.png'
-      });
       this.showEditor();
     }
   }
@@ -97,8 +82,6 @@ export class TextEditorComponent implements OnInit {
     if (!this.editor && this.isReady) {
       this.initializeCKEditor();
     }
-    this.isReady = true;
-    
     if (this.editor != null) {
       this.editor.setData(this.documentContentValue, function () {
         this.checkDirty();  // true
@@ -142,10 +125,6 @@ export class TextEditorComponent implements OnInit {
       this.documentContent = this.editor.getData();
     }
     this.saveDataEvent.emit();
-  }
-
-  public loadData() {
-    this.loadDataEvent.emit();
   }
 
   @Input()
