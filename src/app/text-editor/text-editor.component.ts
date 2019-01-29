@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ckeditorConfiguration } from './shared/ckeditor-configuration';
+import {ckeditorConfiguration} from './shared/ckeditor-configuration';
 import {PlaceholderGroup} from './shared/placeholder-group';
 
 
@@ -18,6 +18,7 @@ export class TextEditorComponent implements OnInit {
   placeholderList: PlaceholderGroup[];
   documentContentValue: string;
   editor: any;
+  isReady: boolean;
 
   /**
    * Callbacks
@@ -25,9 +26,6 @@ export class TextEditorComponent implements OnInit {
 
   @Output()
   documentContentChange = new EventEmitter<string>();
-
-  @Output()
-  loadDataEvent = new EventEmitter<string>();
 
   @Output()
   saveDataEvent = new EventEmitter<string>();
@@ -40,10 +38,11 @@ export class TextEditorComponent implements OnInit {
    * Initialisation
    */
 
-  constructor() { }
+  constructor() { 
+    this.isReady = false;
+  }
 
   ngOnInit() {
-    // this.placeholderList = PlaceholderGroup[];
     document.getElementById('editor').style.display = 'none';
   }
 
@@ -70,18 +69,6 @@ export class TextEditorComponent implements OnInit {
         toolbar: 'editing,1',
         icon: 'https://png.icons8.com/ios/100/000000/save-filled.png'
       });
-      this.editor.addCommand('loadData', {
-        exec: function (edt) {
-          that.loadData();
-        }
-      });
-      this.editor.ui.addButton('loadButton', {
-        label: 'Load Content',
-        command: 'loadData',
-        toolbar: 'editing,1',
-
-        icon: 'https://png.icons8.com/ios/50/000000/synchronize-filled.png'
-      });
       this.showEditor();
     }
   }
@@ -90,14 +77,17 @@ export class TextEditorComponent implements OnInit {
    * Getters and setters
    */
 
-  set documentContent(value) {
+  set documentContent(value: string) {
     this.documentContentValue = value;
+    if (!this.editor && this.isReady) {
+      this.initializeCKEditor();
+    }
     if (this.editor != null) {
       this.editor.setData(this.documentContentValue, function () {
         this.checkDirty();  // true
       });
+      this.documentContentChange.emit(this.documentContentValue);
     }
-    this.documentContentChange.emit(this.documentContentValue);
   }
 
   @Input()
@@ -111,7 +101,10 @@ export class TextEditorComponent implements OnInit {
     }
     this.placeholderList = placeholderNames;
     this.placeHolderEvent.emit(this.placeholderList);
-    this.initializeCKEditor();
+    if(this.isReady) {
+      this.initializeCKEditor();
+    }
+    this.isReady = true;
   }
 
   @Input()
@@ -132,10 +125,6 @@ export class TextEditorComponent implements OnInit {
       this.documentContent = this.editor.getData();
     }
     this.saveDataEvent.emit();
-  }
-
-  public loadData() {
-    this.loadDataEvent.emit();
   }
 
   @Input()
