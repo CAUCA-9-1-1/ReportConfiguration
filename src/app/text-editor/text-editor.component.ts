@@ -38,7 +38,7 @@ export class TextEditorComponent implements OnInit {
    * Initialisation
    */
 
-  constructor() { 
+  constructor() {
     this.isReady = false;
   }
 
@@ -57,10 +57,10 @@ export class TextEditorComponent implements OnInit {
 
       ckeditorConfiguration['placeholders'] = this.placeholderList;
       this.editor = window.CKEDITOR.replace('editor', ckeditorConfiguration);
-      const that = this;
+
       this.editor.addCommand('saveData', {
-        exec: function (edt) {
-          that.saveData();
+        exec: (edt) => {
+          this.saveData();
         }
       });
       this.editor.ui.addButton('saveButton', {
@@ -83,9 +83,7 @@ export class TextEditorComponent implements OnInit {
       this.initializeCKEditor();
     }
     if (this.editor != null) {
-      this.editor.setData(this.documentContentValue, function () {
-        this.checkDirty();  // true
-      });
+      this.editor.setData(this.documentContentValue);
       this.documentContentChange.emit(this.documentContentValue);
     }
   }
@@ -101,7 +99,7 @@ export class TextEditorComponent implements OnInit {
     }
     this.placeholderList = placeholderNames;
     this.placeHolderEvent.emit(this.placeholderList);
-    if(this.isReady) {
+    if (this.isReady) {
       this.initializeCKEditor();
     }
     this.isReady = true;
@@ -124,7 +122,7 @@ export class TextEditorComponent implements OnInit {
     if (this.editor != null) {
       this.documentContent = this.editor.getData();
     }
-    this.saveDataEvent.emit();
+    this.saveDataEvent.emit(this.documentContent);
   }
 
   @Input()
